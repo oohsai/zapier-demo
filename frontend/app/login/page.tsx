@@ -2,8 +2,15 @@
 import { Appbar } from "@/components/buttons/Appbar";
 import { PrimaryButton } from "@/components/buttons/PrimaryButton";
 import { Input } from "@/components/Input";
+import axios from "axios";
+import { useRouter } from "next/navigation";
+import {  useState } from "react";
+import { BACKEND_URL } from "../config";
 
 export default function() {
+    const router = useRouter();
+    const [email, setEmail] = useState();
+    const [password, setPassword] = useState();
     return <div>
         <Appbar type="signin" />
         <div className="grid grid-cols-2 p-4 items-center">
@@ -16,13 +23,19 @@ export default function() {
                 </div>
             </div>
             <div>
-                <Input label={"Email"} placeholder={"Email"} onChange={ e => {}} type="text">
+                <Input label={"Email"} placeholder={"Email"} onChange={ e => {setEmail(e.target.value)}} type="text">
                 </Input>
-                <Input label={"Password"} placeholder={"Password"} onChange={ e =>{} } 
+                <Input label={"Password"} placeholder={"Password"} onChange={ e =>{setPassword(e.target.value)} } 
                 type="password">
                 </Input>
                 <div className="pt-4">
-                    <PrimaryButton onClick={() => {
+                    <PrimaryButton onClick={async () => {
+                        const res = await axios.post(`${BACKEND_URL}/api/v1/user/signin`, {
+                            username: email,
+                            password,
+                        });
+                        localStorage.setItem("token", res.data.token);
+                        router.push("/dashboard");
                     }} size="big">Login</PrimaryButton>
                 </div>
             </div>
