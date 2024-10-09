@@ -3,7 +3,7 @@ import { Appbar } from "@/components/buttons/Appbar";
 import { TButton } from "@/components/buttons/TButton";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { BACKEND_URL } from "../config";
+import { BACKEND_URL, HOOKS_URl } from "../config";
 import { LinkButton } from "@/components/buttons/LinkButtons";
 import { useRouter } from "next/navigation";
 
@@ -19,7 +19,8 @@ interface Zap {
                 "sortingOrder": number,
                 "type": {
                     "id": string,
-                    "name": string
+                    "name": string,
+                    "image": string
                 }
             }[],
         "trigger": {
@@ -28,7 +29,8 @@ interface Zap {
             "triggerId": string,
             "type": {
                 "id": string,
-                "name": string
+                "name": string,
+                "image": string
             }
         }
 }
@@ -65,10 +67,10 @@ function ZapTable({zaps} : {zaps: Zap[]}) {
     </div>
                 {zaps.map(z => 
                     <div className="flex border-b border-t py-4">
-                            <div className="flex-1">{z.trigger.type.name} {z.action.map(x => x.type.name + " ")}</div>
+                            <div className="flex flex-1"><img src ={z.trigger.type.image} className="w-[30px] h-[30px]" /> {z.action.map(x => <img src={x.type.image} className="w-[30px] h-[30px]" />)}</div>
                             <div className="flex-1">{z.id}</div>
                             <div className="flex-1">06 Oct, 2024</div>
-                            {/* <div className="flex-1">{`${HOOKS_URL}/hooks/catch/1/${z.id}`}</div> */}
+                            <div className="flex-1">{`${HOOKS_URl}/hooks/catch/1/${z.id}`}</div>
                             <div className="flex-1"><LinkButton onClick={() => {
                             router.push("/zap/"+ z.id)
                     }}>Go</LinkButton></div>
@@ -83,7 +85,7 @@ export default function() {
     const { loading, zaps } = useZaps();
 
     return <div>
-        <Appbar type="home" />
+        <Appbar type="logout" />
         <div className="flex justify-center items-center pt-8">
             <div className="max-w-screen-lg w-full">
                 <div className="flex justify-between pr-8">

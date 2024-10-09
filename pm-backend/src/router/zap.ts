@@ -35,7 +35,7 @@ router.post("/", authMiddleware, async (req, res) => {
 
         const trigger = await tx.trigger.create({
             data: {
-                triggerId: parsedData.data.avaialbleTriggerId,
+                triggerId: parsedData.data.availableTriggerId,
                 zapId: zap.id,
             }
         });

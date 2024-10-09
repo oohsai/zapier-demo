@@ -4,7 +4,7 @@ import { LinkButton } from "./LinkButtons";
 import { PrimaryButton } from "./PrimaryButton";
 
 
-export const Appbar = ({type}: {type: "signup" | "signin" | "home"}) => {
+export const Appbar = ({type}: {type: "signup" | "signin" | "home" | "logout"}) => {
     const router = useRouter();
     return <div className="flex border-b justify-between p-4">
         <div className="flex flex-col justify-center text-2xl font-extrabold">
@@ -48,6 +48,18 @@ export const Appbar = ({type}: {type: "signup" | "signin" | "home"}) => {
             </PrimaryButton> 
                 </div>
             ):null}
+            {
+                type === "logout" ? (
+                    <div>
+                    <PrimaryButton onClick={() => {
+                        localStorage.removeItem("token");
+                router.push("/")
+            }}>
+                Log Out
+            </PrimaryButton> 
+                </div>
+                ) : null
+            }
                       
         </div>
     </div>

@@ -41,7 +41,7 @@ router.post("/", middleware_1.authMiddleware, (req, res) => __awaiter(void 0, vo
         });
         const trigger = yield tx.trigger.create({
             data: {
-                triggerId: parsedData.data.avaialbleTriggerId,
+                triggerId: parsedData.data.availableTriggerId,
                 zapId: zap.id,
             }
         });
