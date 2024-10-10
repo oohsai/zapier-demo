@@ -28,8 +28,8 @@ model Zap {
   trigger Trigger?
   action  Action[]
   zapRuns ZapRun[]
-  userId  Int @default(autoincrement())
-  user User @relation(fields:[userId], references: [id])
+  userId  Int
+  user    User @relation(fields:[userId], references: [id])
 }
 
 model Trigger{
@@ -43,14 +43,17 @@ model Trigger{
 model AvailableTrigger {
   id  String @id @default(uuid())
   name  String
+  image String?
+  metadata  Json?
   triggers  Trigger[]
 }
 
-model Action{
+model Action {
   id  String @id @default(uuid())
   zapId String
   zap Zap @relation(fields: [zapId], references: [id])
   actionId String
+  metadata  Json?
   type AvailableAction @relation(fields: [actionId], references: [id])
   sortingOrder  Int @default(0)
 }
@@ -58,6 +61,7 @@ model Action{
 model AvailableAction{
   id  String @id @default(uuid())
   name String
+  image String?
   actions Action[]
 }
 

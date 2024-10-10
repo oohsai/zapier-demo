@@ -29,4 +29,4 @@ app.post("/hooks/catch/:userId/:zapId", async (req,res) => {
     res.json("Webhook runs")
 })
 
-app.listen(3000);
+app.listen(3002);
